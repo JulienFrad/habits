@@ -9,6 +9,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Habits">
 <meta name="theme-color" content="#fafbfc">
+<!-- Prevent iOS PWA from caching old versions -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <!-- App Icon (inline SVG as data URI) -->
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%236366f1'/%3E%3Ctext x='90' y='115' text-anchor='middle' font-size='90'%3E✓%3C/text%3E%3C/svg%3E">
 <style>
@@ -48,15 +52,26 @@ function saveState(key, value) {
 // ── Date helpers ──
 const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-function getDateKey(d) { return d.toISOString().split("T")[0]; }
+function getDateKey(d) {
+  // Always use Pacific Time
+  const opts = { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' };
+  const parts = new Intl.DateTimeFormat('en-CA', opts).format(d); // en-CA gives YYYY-MM-DD
+  return parts;
+}
+
 function getDaysInRange(s, e) {
   const days = [], d = new Date(s);
   while (d <= e) { days.push(getDateKey(d)); d.setDate(d.getDate()+1); }
   return days;
 }
 function getToday() { return getDateKey(new Date()); }
+// Get day-of-week (0=Sun) in Pacific time
+function getPacificDay(d) {
+  const dayStr = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', weekday: 'short' }).format(d);
+  return { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 }[dayStr] ?? new Date().getDay();
+}
 function getWeekDates() {
-  const t = new Date(), day = t.getDay(), m = new Date(t);
+  const t = new Date(), day = getPacificDay(t), m = new Date(t);
   m.setDate(t.getDate() - ((day+6)%7));
   return getDaysInRange(m, t);
 }
@@ -65,7 +80,7 @@ function getMondayOfWeek(ds) {
   m.setDate(d.getDate() - ((day+6)%7));
   return getDateKey(m);
 }
-function isMidWeek() { const d = new Date().getDay(); return d===3||d===4; }
+function isMidWeek() { const d = getPacificDay(new Date()); return d===3||d===4; }
 function calcStreak(comp, hid, freq) {
   if (freq === "weekly") {
     let s = 0, d = new Date(), ck = getMondayOfWeek(getDateKey(d));
