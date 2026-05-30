@@ -14,7 +14,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <!-- App Icon (inline SVG as data URI) -->
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%236366f1'/%3E%3Ctext x='90' y='115' text-anchor='middle' font-size='90'%3Eâ%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%236366f1'/%3E%3Ctext x='90' y='115' text-anchor='middle' font-size='90'%3E✓%3C/text%3E%3C/svg%3E">
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
   html, body { height: 100%; overflow-x: hidden; }
@@ -57,7 +57,7 @@
 <div id="root"></div>
 <script type="text/babel">
 const { useState, useMemo, useCallback, useEffect } = React;
-// ââ localStorage helpers ââ
+// ── localStorage helpers ──
 function loadState(key, fallback) {
   try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
   catch { return fallback; }
@@ -65,7 +65,7 @@ function loadState(key, fallback) {
 function saveState(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
 }
-// ââ Date helpers ââ
+// ── Date helpers ──
 const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function getDateKey(d) {
@@ -159,73 +159,73 @@ function generateHeatmapData(comp, hid) {
   if(week.length>0){while(week.length<7)week.push(null);weeks.push(week);}
   return weeks;
 }
-// ââ Constants ââ
+// ── Constants ──
 const COLORS=["#6366f1","#ec4899","#f59e0b","#10b981","#3b82f6","#8b5cf6","#ef4444","#14b8a6","#f97316","#06b6d4"];
 const PRESET_HABITS = {
   home: {
     daily: [
-      {name:"Wegovy Pill",icon:"ð",category:"health",note:"Every other day"},{name:"Morning Supplements",icon:"ð",category:"health"},{name:"Evening Supplements",icon:"ð",category:"health"},
-      {name:"Morning Yoga",icon:"ð§",category:"health"},
-      {name:"Phone off before bed",icon:"ðµ",category:"health"},{name:"In bed by 10",icon:"ð´",category:"health"},
-      {name:"Hydrate",icon:"ð§",category:"health"},{name:"Read",icon:"ð",category:"health"},{name:"Journal",icon:"âï¸",category:"health"},
+      {name:"Wegovy Pill",icon:"💊",category:"health",note:"Every other day"},{name:"Morning Supplements",icon:"🌅",category:"health"},{name:"Evening Supplements",icon:"🌙",category:"health"},
+      {name:"Morning Yoga",icon:"🧘",category:"health"},
+      {name:"Phone off before bed",icon:"📵",category:"health"},{name:"In bed by 10",icon:"😴",category:"health"},
+      {name:"Hydrate",icon:"💧",category:"health"},{name:"Read",icon:"📖",category:"health"},{name:"Journal",icon:"✏️",category:"health"},
     ],
     weekly: [
-      {name:"Surf",icon:"ð",category:"health",note:"1 weekend day"},{name:"10k Run",icon:"ð",category:"health",note:"1 weekend day"},
-      {name:"Weight Training",icon:"ðï¸",category:"health"},{name:"Send a Posting",icon:"âï¸",category:"work"},
-      {name:"2h Networking",icon:"ð¤",category:"work"},{name:"1h Week Planning",icon:"ð",category:"work",note:"Sunday"},
+      {name:"Surf",icon:"🏄",category:"health",note:"1 weekend day"},{name:"10k Run",icon:"🏃",category:"health",note:"1 weekend day"},
+      {name:"Weight Training",icon:"🏋️",category:"health"},{name:"Send a Posting",icon:"✍️",category:"work"},
+      {name:"2h Networking",icon:"🤝",category:"work"},{name:"1h Week Planning",icon:"📋",category:"work",note:"Sunday"},
     ],
   },
   travelling: {
     daily: [
-      {name:"Wegovy Pill",icon:"ð",category:"health",note:"Every other day"},{name:"Morning Supplements",icon:"ð",category:"health"},{name:"Evening Supplements",icon:"ð",category:"health"},
-      {name:"Stretch",icon:"ð¤¸",category:"health"},
-      {name:"Stay hydrated",icon:"ð§",category:"health"},{name:"Walk 10k steps",icon:"ð¶",category:"health"},
-      {name:"Sunscreen",icon:"âï¸",category:"health"},{name:"Journal",icon:"âï¸",category:"health"},
+      {name:"Wegovy Pill",icon:"💊",category:"health",note:"Every other day"},{name:"Morning Supplements",icon:"🌅",category:"health"},{name:"Evening Supplements",icon:"🌙",category:"health"},
+      {name:"Stretch",icon:"🤸",category:"health"},
+      {name:"Stay hydrated",icon:"💧",category:"health"},{name:"Walk 10k steps",icon:"🚶",category:"health"},
+      {name:"Sunscreen",icon:"☀️",category:"health"},{name:"Journal",icon:"✏️",category:"health"},
     ],
     weekly: [
-      {name:"Send a Posting",icon:"âï¸",category:"work"},{name:"2h Networking",icon:"ð¤",category:"work"},
-      {name:"Back up photos",icon:"ð¸",category:"health"},{name:"Budget check",icon:"ð³",category:"work"},
+      {name:"Send a Posting",icon:"✍️",category:"work"},{name:"2h Networking",icon:"🤝",category:"work"},
+      {name:"Back up photos",icon:"📸",category:"health"},{name:"Budget check",icon:"💳",category:"work"},
     ],
   },
 };
 const DEFAULT_HABITS = {
   home: {
     daily: [
-      {id:"h1",name:"Wegovy Pill",icon:"ð",color:"#10b981",category:"health",note:"Every other day"},
-      {id:"h11",name:"Morning Supplements",icon:"ð",color:"#f59e0b",category:"health"},
-      {id:"h12",name:"Evening Supplements",icon:"ð",color:"#8b5cf6",category:"health"},
-      {id:"h2",name:"Morning Yoga",icon:"ð§",color:"#14b8a6",category:"health"},
-      {id:"h3",name:"Phone off before bed",icon:"ðµ",color:"#8b5cf6",category:"health"},
-      {id:"h4",name:"In bed by 10",icon:"ð´",color:"#6366f1",category:"health"},
+      {id:"h1",name:"Wegovy Pill",icon:"💊",color:"#10b981",category:"health",note:"Every other day"},
+      {id:"h11",name:"Morning Supplements",icon:"🌅",color:"#f59e0b",category:"health"},
+      {id:"h12",name:"Evening Supplements",icon:"🌙",color:"#8b5cf6",category:"health"},
+      {id:"h2",name:"Morning Yoga",icon:"🧘",color:"#14b8a6",category:"health"},
+      {id:"h3",name:"Phone off before bed",icon:"📵",color:"#8b5cf6",category:"health"},
+      {id:"h4",name:"In bed by 10",icon:"😴",color:"#6366f1",category:"health"},
     ],
     weekly: [
-      {id:"h5",name:"Surf",icon:"ð",color:"#3b82f6",category:"health",note:"1 weekend day"},
-      {id:"h6",name:"10k Run",icon:"ð",color:"#f59e0b",category:"health",note:"1 weekend day"},
-      {id:"h7",name:"Weight Training",icon:"ðï¸",color:"#ef4444",category:"health"},
-      {id:"h8",name:"Send a Posting",icon:"âï¸",color:"#6366f1",category:"work"},
-      {id:"h9",name:"2h Networking",icon:"ð¤",color:"#8b5cf6",category:"work"},
-      {id:"h10",name:"1h Week Planning",icon:"ð",color:"#3b82f6",category:"work",note:"Sunday"},
+      {id:"h5",name:"Surf",icon:"🏄",color:"#3b82f6",category:"health",note:"1 weekend day"},
+      {id:"h6",name:"10k Run",icon:"🏃",color:"#f59e0b",category:"health",note:"1 weekend day"},
+      {id:"h7",name:"Weight Training",icon:"🏋️",color:"#ef4444",category:"health"},
+      {id:"h8",name:"Send a Posting",icon:"✍️",color:"#6366f1",category:"work"},
+      {id:"h9",name:"2h Networking",icon:"🤝",color:"#8b5cf6",category:"work"},
+      {id:"h10",name:"1h Week Planning",icon:"📋",color:"#3b82f6",category:"work",note:"Sunday"},
     ],
   },
   travelling: {
     daily: [
-      {id:"t1",name:"Wegovy Pill",icon:"ð",color:"#10b981",category:"health",note:"Every other day"},
-      {id:"t10",name:"Morning Supplements",icon:"ð",color:"#f59e0b",category:"health"},
-      {id:"t11",name:"Evening Supplements",icon:"ð",color:"#8b5cf6",category:"health"},
-      {id:"t2",name:"Stretch",icon:"ð¤¸",color:"#14b8a6",category:"health"},
-      {id:"t3",name:"Stay hydrated",icon:"ð§",color:"#3b82f6",category:"health"},
-      {id:"t4",name:"Walk 10k steps",icon:"ð¶",color:"#f59e0b",category:"health"},
-      {id:"t5",name:"Sunscreen",icon:"âï¸",color:"#f97316",category:"health"},
+      {id:"t1",name:"Wegovy Pill",icon:"💊",color:"#10b981",category:"health",note:"Every other day"},
+      {id:"t10",name:"Morning Supplements",icon:"🌅",color:"#f59e0b",category:"health"},
+      {id:"t11",name:"Evening Supplements",icon:"🌙",color:"#8b5cf6",category:"health"},
+      {id:"t2",name:"Stretch",icon:"🤸",color:"#14b8a6",category:"health"},
+      {id:"t3",name:"Stay hydrated",icon:"💧",color:"#3b82f6",category:"health"},
+      {id:"t4",name:"Walk 10k steps",icon:"🚶",color:"#f59e0b",category:"health"},
+      {id:"t5",name:"Sunscreen",icon:"☀️",color:"#f97316",category:"health"},
     ],
     weekly: [
-      {id:"t6",name:"Send a Posting",icon:"âï¸",color:"#6366f1",category:"work"},
-      {id:"t7",name:"2h Networking",icon:"ð¤",color:"#8b5cf6",category:"work"},
-      {id:"t8",name:"Back up photos",icon:"ð¸",color:"#ec4899",category:"health"},
-      {id:"t9",name:"Budget check",icon:"ð³",color:"#06b6d4",category:"work"},
+      {id:"t6",name:"Send a Posting",icon:"✍️",color:"#6366f1",category:"work"},
+      {id:"t7",name:"2h Networking",icon:"🤝",color:"#8b5cf6",category:"work"},
+      {id:"t8",name:"Back up photos",icon:"📸",color:"#ec4899",category:"health"},
+      {id:"t9",name:"Budget check",icon:"💳",color:"#06b6d4",category:"work"},
     ],
   },
 };
-// ââ Components ââ
+// ── Components ──
 function Heatmap({completions, habitId, color}) {
   const weeks = useMemo(()=>generateHeatmapData(completions,habitId),[completions,habitId]);
   const monthLabels = useMemo(()=>{
@@ -263,7 +263,7 @@ function WeeklyProgressBar({completions,habitId,color}) {
     React.createElement("span",{style:{fontSize:11,color:isDone?color:"#94a3b8",fontWeight:600}},isDone?"Done":"Pending")
   );
 }
-// ââ Firebase sync helpers ââ
+// ── Firebase sync helpers ──
 let _syncTimeout = null;
 function syncToFirestore(user, mode, habits, completions) {
   if (!user) return;
@@ -275,7 +275,7 @@ function syncToFirestore(user, mode, habits, completions) {
     ref.doc("completions").set(completions, { merge: false }).catch(()=>{});
   }, 800);
 }
-// ââ Main App ââ
+// ── Main App ──
 function HabitTracker() {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
@@ -287,10 +287,10 @@ function HabitTracker() {
   const [addFrequency, setAddFrequency] = useState("daily");
   const [addCategory, setAddCategory] = useState("health");
   const [newHabitName, setNewHabitName] = useState("");
-  const [newHabitIcon, setNewHabitIcon] = useState("â­");
+  const [newHabitIcon, setNewHabitIcon] = useState("⭐");
   const [expandedHabit, setExpandedHabit] = useState(null);
   const [syncStatus, setSyncStatus] = useState("");
-  // ââ Firebase Auth listener ââ
+  // ── Firebase Auth listener ──
   useEffect(()=>{
     const unsub = auth.onAuthStateChanged(async (u)=>{
       setUser(u);
@@ -337,7 +337,7 @@ function HabitTracker() {
     });
     return () => unsub();
   }, []);
-  // ââ Sync to Firestore when data changes ââ
+  // ── Sync to Firestore when data changes ──
   const didMount = React.useRef(false);
   useEffect(()=>{
     if (!didMount.current) { didMount.current = true; return; }
@@ -357,7 +357,7 @@ function HabitTracker() {
   const signOut = async ()=>{
     try { await auth.signOut(); setSyncStatus(""); } catch(err) { console.error("Sign-out error:", err); }
   };
-  // ââ Date change detection ââ
+  // ── Date change detection ──
   const [dateKey, setDateKey] = useState(getToday);
   useEffect(()=>{
     const interval = setInterval(()=>{
@@ -395,7 +395,7 @@ function HabitTracker() {
     const catColor=addCategory==="work"?COLORS[0]:COLORS[3];
     const nh={id,name:newHabitName.trim(),icon:newHabitIcon,color:catColor,category:addCategory};
     setHabits(prev=>({...prev,[mode]:{...prev[mode],[addFrequency]:[...prev[mode][addFrequency],nh]}}));
-    setNewHabitName("");setNewHabitIcon("â­");setShowAdd(false);
+    setNewHabitName("");setNewHabitIcon("⭐");setShowAdd(false);
   };
   const removeHabit = (id,freq)=>{
     setHabits(prev=>({...prev,[mode]:{...prev[mode],[freq]:prev[mode][freq].filter(h=>h.id!==id)}}));
@@ -413,20 +413,49 @@ function HabitTracker() {
   const formatDate=(ds)=>new Date(ds+"T12:00:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
   const formatShortDay=(ds)=>{const d=new Date(ds+"T12:00:00");return{day:DAYS[(d.getDay()+6)%7],num:d.getDate()};};
   const e = React.createElement;
-  // ââ Habit Card ââ
+  // ── Habit Card ──
   const renderHabitCard = (habit, frequency, date=today) => {
     const done = frequency==="weekly"
       ? (()=>{const mk=getMondayOfWeek(date),we=new Date(mk+"T12:00:00");we.setDate(we.getDate()+6);return getDaysInRange(new Date(mk+"T12:00:00"),new Date(Math.min(we.getTime(),Date.now()))).some(d=>(completions[d]||[]).includes(habit.id));})()
       : (completions[date]||[]).includes(habit.id);
     const streak=calcStreak(completions,habit.id,frequency);
-    const isExpanded=expandedHabit===habit.id;,{style:{fontSize:12}},catIcon),
+    const isExpanded=expandedHabit===habit.id;
+    return e("div",{key:habit.id,style:{marginBottom:8}},
+      e("div",{onClick:()=>toggleHabit(habit.id,date),style:{
+        background:"#fff",borderRadius:16,padding:"14px 16px",display:"flex",alignItems:"center",gap:12,cursor:"pointer",
+        boxShadow:"0 1px 3px rgba(0,0,0,0.04)",transition:"all 0.2s",
+        border:done?`2px solid ${habit.color}`:"2px solid transparent",
+      }},
+        e("div",{style:{width:38,height:38,borderRadius:12,background:done?habit.color:"#f8fafc",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,transition:"all 0.2s",color:done?"#fff":undefined,boxShadow:done?`0 2px 8px ${habit.color}40`:"none"}},done?"✓":habit.icon),
+        e("div",{style:{flex:1,minWidth:0}},
+          e("div",{style:{fontSize:14,fontWeight:600,color:done?habit.color:"#1e293b",transition:"color 0.2s"}},habit.name),
+          e("div",{style:{display:"flex",alignItems:"center",gap:6,marginTop:2,flexWrap:"wrap"}},
+            streak>0&&e("span",{style:{fontSize:11,color:"#94a3b8"}},"🔥 ",streak," ",frequency==="weekly"?"wk":"day"," streak"),
+            frequency==="weekly"&&e("span",{style:{fontSize:10,fontWeight:600,padding:"1px 6px",borderRadius:4,background:"#f0f9ff",color:"#3b82f6"}},"WEEKLY"),
+            habit.note&&e("span",{style:{fontSize:10,fontWeight:500,padding:"1px 6px",borderRadius:4,background:"#faf5ff",color:"#9333ea"}},habit.note)
+          )
+        ),
+        e("button",{onClick:ev=>{ev.stopPropagation();setExpandedHabit(isExpanded?null:habit.id);},style:{background:"none",border:"none",fontSize:18,color:"#cbd5e1",cursor:"pointer",padding:4}},"···")
+      ),
+      isExpanded&&e("div",{style:{background:"#fff",borderRadius:"0 0 16px 16px",padding:"10px 16px",marginTop:-6,boxShadow:"0 1px 3px rgba(0,0,0,0.04)",display:"flex",gap:8,justifyContent:"flex-end"}},
+        e("button",{onClick:()=>removeHabit(habit.id,frequency),style:{padding:"6px 14px",borderRadius:8,border:"1px solid #fecaca",background:"#fff",color:"#ef4444",fontSize:12,fontWeight:600,cursor:"pointer"}},"Remove")
+      )
+    );
+  };
+  // ── Category section renderer ──
+  const renderCategoryGroup = (habitsArr, frequency, catKey, catIcon, catColor) => {
+    const filtered = habitsArr.filter(h=>h.category===catKey);
+    if(filtered.length===0) return null;
+    return e("div",{key:catKey+frequency,style:{marginBottom:4}},
+      e("div",{style:{display:"flex",alignItems:"center",gap:6,marginBottom:6,paddingLeft:2}},
+        e("span",{style:{fontSize:12}},catIcon),
         e("span",{style:{fontSize:10,fontWeight:700,color:catColor,textTransform:"uppercase",letterSpacing:0.5}},catKey==="health"?"Health":"Work")
       ),
       filtered.map(h=>renderHabitCard(h,frequency))
     );
   };
   return e("div",{style:{maxWidth:430,margin:"0 auto",minHeight:"100vh",backgroundColor:"#fafbfc",color:"#1e293b",padding:"0 0 100px 0"}},
-    // ââ Header ââ
+    // ── Header ──
     e("div",{style:{padding:"44px 20px 16px",background:"linear-gradient(180deg,#fff 0%,#fafbfc 100%)"}},
       e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}},
         e("div",null,
@@ -437,14 +466,14 @@ function HabitTracker() {
           // Sync/Auth indicator
           user
             ? e("button",{onClick:signOut,title:"Signed in as "+user.email+"\nClick to sign out",style:{width:32,height:32,borderRadius:10,border:"none",background:syncStatus==="synced"?"#ecfdf5":syncStatus==="syncing"?"#fef3c7":"#f1f5f9",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,padding:0}},
-                syncStatus==="synced"?"âï¸":syncStatus==="syncing"?"â³":"âï¸")
-            : e("button",{onClick:signIn,title:"Sign in to sync across devices",style:{padding:"6px 10px",borderRadius:10,border:"1px solid #e2e8f0",background:"#fff",color:"#64748b",fontSize:11,fontWeight:600,cursor:"pointer",whiteSpace:"nowrap"}},"âï¸ Sync"),
+                syncStatus==="synced"?"☁️":syncStatus==="syncing"?"⏳":"☁️")
+            : e("button",{onClick:signIn,title:"Sign in to sync across devices",style:{padding:"6px 10px",borderRadius:10,border:"1px solid #e2e8f0",background:"#fff",color:"#64748b",fontSize:11,fontWeight:600,cursor:"pointer",whiteSpace:"nowrap"}},"☁️ Sync"),
           e("button",{onClick:()=>{setShowAdd(true);setAddFrequency("daily");},style:{width:40,height:40,borderRadius:14,border:"none",background:"#6366f1",color:"#fff",fontSize:22,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 8px rgba(99,102,241,0.3)"}},"+")
         )
       ),
       // Mode Switcher
       e("div",{style:{display:"flex",background:"#f1f5f9",borderRadius:14,padding:3,marginBottom:16}},
-        [{key:"home",label:"ð  At Home"},{key:"travelling",label:"âï¸ Travelling"}].map(m=>
+        [{key:"home",label:"🏠 At Home"},{key:"travelling",label:"✈️ Travelling"}].map(m=>
           e("button",{key:m.key,onClick:()=>setMode(m.key),style:{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:mode===m.key?"#fff":"transparent",color:mode===m.key?"#1e293b":"#94a3b8",fontSize:13,fontWeight:600,cursor:"pointer",boxShadow:mode===m.key?"0 1px 4px rgba(0,0,0,0.08)":"none",transition:"all 0.2s"}},m.label)
         )
       ),
@@ -459,47 +488,47 @@ function HabitTracker() {
         ),
         e("div",null,
           e("div",{style:{fontSize:15,fontWeight:600}},"Daily Progress"),
-          e("div",{style:{fontSize:12,color:"#94a3b8",marginTop:2}},dailyDone+"/"+dailyTotal+" daily Â· "+weeklyDone+"/"+weeklyTotal+" weekly"),
-          percentage===100&&dailyTotal>0&&e("div",{style:{fontSize:12,color:"#10b981",marginTop:3,fontWeight:600}},"All daily habits done! ð")
+          e("div",{style:{fontSize:12,color:"#94a3b8",marginTop:2}},dailyDone+"/"+dailyTotal+" daily · "+weeklyDone+"/"+weeklyTotal+" weekly"),
+          percentage===100&&dailyTotal>0&&e("div",{style:{fontSize:12,color:"#10b981",marginTop:3,fontWeight:600}},"All daily habits done! 🎉")
         )
       )
     ),
-    // ââ Mid-week reminder ââ
+    // ── Mid-week reminder ──
     showMidWeekReminder&&weeklyPending>0&&view==="today"&&(()=>{
       const pendH=currentHabits.weekly.filter(h=>h.category==="health"&&!(()=>{const mk=getMondayOfWeek(today),we=new Date(mk+"T12:00:00");we.setDate(we.getDate()+6);return getDaysInRange(new Date(mk+"T12:00:00"),new Date(Math.min(we.getTime(),Date.now()))).some(d=>(completions[d]||[]).includes(h.id));})());
       const pendW=currentHabits.weekly.filter(h=>h.category==="work"&&!(()=>{const mk=getMondayOfWeek(today),we=new Date(mk+"T12:00:00");we.setDate(we.getDate()+6);return getDaysInRange(new Date(mk+"T12:00:00"),new Date(Math.min(we.getTime(),Date.now()))).some(d=>(completions[d]||[]).includes(h.id));})());
       return e("div",{style:{margin:"8px 20px 0",padding:"14px 16px",borderRadius:14,background:"linear-gradient(135deg,#fef3c7 0%,#fde68a 100%)"}},
-        e("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:6}},e("span",{style:{fontSize:20}},"â°"),e("div",{style:{fontSize:13,fontWeight:700,color:"#92400e"}},"Mid-week check-in")),
+        e("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:6}},e("span",{style:{fontSize:20}},"⏰"),e("div",{style:{fontSize:13,fontWeight:700,color:"#92400e"}},"Mid-week check-in")),
         e("div",{style:{fontSize:12,color:"#a16207",lineHeight:1.5,paddingLeft:30}},
-          pendH.length>0&&e("div",null,"ð Health: "+pendH.map(h=>h.name).join(", ")),
-          pendW.length>0&&e("div",null,"ð¼ Work: "+pendW.map(h=>h.name).join(", ")),
-          e("div",{style:{marginTop:4,fontWeight:600}},"Half the week is gone â you've got this!")
+          pendH.length>0&&e("div",null,"💚 Health: "+pendH.map(h=>h.name).join(", ")),
+          pendW.length>0&&e("div",null,"💼 Work: "+pendW.map(h=>h.name).join(", ")),
+          e("div",{style:{marginTop:4,fontWeight:600}},"Half the week is gone — you've got this!")
         )
       );
     })(),
-    // ââ View switcher ââ
+    // ── View switcher ──
     e("div",{style:{display:"flex",gap:4,padding:"12px 20px 14px"}},
       [{key:"today",label:"Today"},{key:"week",label:"This Week"},{key:"stats",label:"Stats"}].map(v=>
         e("button",{key:v.key,onClick:()=>setView(v.key),style:{flex:1,padding:"9px 0",borderRadius:12,border:"none",background:view===v.key?"#6366f1":"#fff",color:view===v.key?"#fff":"#64748b",fontSize:13,fontWeight:600,cursor:"pointer",boxShadow:view===v.key?"0 2px 8px rgba(99,102,241,0.25)":"0 1px 2px rgba(0,0,0,0.04)",transition:"all 0.2s"}},v.label)
       )
     ),
-    // ââ TODAY VIEW ââ
+    // ── TODAY VIEW ──
     view==="today"&&e("div",{style:{padding:"0 20px"}},
-      currentHabits.daily.length===0&&currentHabits.weekly.length===0&&e("div",{style:{textAlign:"center",padding:"40px 20px",color:"#94a3b8"}},e("div",{style:{fontSize:36,marginBottom:10}},"ð±"),e("div",{style:{fontSize:14,fontWeight:500}},"No habits yet"),e("div",{style:{fontSize:12,marginTop:4}},"Tap + to add your first habit")),
+      currentHabits.daily.length===0&&currentHabits.weekly.length===0&&e("div",{style:{textAlign:"center",padding:"40px 20px",color:"#94a3b8"}},e("div",{style:{fontSize:36,marginBottom:10}},"🌱"),e("div",{style:{fontSize:14,fontWeight:500}},"No habits yet"),e("div",{style:{fontSize:12,marginTop:4}},"Tap + to add your first habit")),
       currentHabits.daily.length>0&&e(React.Fragment,null,
         e("div",{style:{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:1,marginBottom:8,paddingLeft:2}},"Daily Routines"),
-        renderCategoryGroup(currentHabits.daily,"daily","health","ð","#10b981"),
-        renderCategoryGroup(currentHabits.daily,"daily","work","ð¼","#6366f1")
+        renderCategoryGroup(currentHabits.daily,"daily","health","💚","#10b981"),
+        renderCategoryGroup(currentHabits.daily,"daily","work","💼","#6366f1")
       ),
       currentHabits.weekly.length>0&&e(React.Fragment,null,
         e("div",{style:{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:1,marginBottom:8,marginTop:20,paddingLeft:2,display:"flex",alignItems:"center",gap:8}},"Weekly Routines",
           e("span",{style:{fontSize:10,fontWeight:600,padding:"2px 8px",borderRadius:6,background:weeklyPending>0?"#fef3c7":"#dcfce7",color:weeklyPending>0?"#a16207":"#16a34a"}},weeklyDone+"/"+weeklyTotal)
         ),
-        renderCategoryGroup(currentHabits.weekly,"weekly","health","ð","#10b981"),
-        renderCategoryGroup(currentHabits.weekly,"weekly","work","ð¼","#6366f1")
+        renderCategoryGroup(currentHabits.weekly,"weekly","health","💚","#10b981"),
+        renderCategoryGroup(currentHabits.weekly,"weekly","work","💼","#6366f1")
       )
     ),
-    // ââ WEEK VIEW ââ
+    // ── WEEK VIEW ──
     view==="week"&&e("div",{style:{padding:"0 20px"}},
       e("div",{style:{display:"flex",gap:5,marginBottom:16}},
         weekDates.map(date=>{const{day,num}=formatShortDay(date);const isToday=date===today;const count=currentHabits.daily.filter(h=>(completions[date]||[]).includes(h.id)).length;const pct=dailyTotal>0?count/dailyTotal:0;
@@ -516,7 +545,7 @@ function HabitTracker() {
           e("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:10}},e("span",{style:{fontSize:14}},habit.icon),e("span",{style:{fontSize:13,fontWeight:600}},habit.name)),
           e("div",{style:{display:"flex",gap:5}},
             weekDates.map(date=>{const done=(completions[date]||[]).includes(habit.id);
-              return e("button",{key:date,onClick:()=>toggleHabit(habit.id,date),style:{flex:1,height:34,borderRadius:8,border:"none",background:done?habit.color:"#f8fafc",cursor:"pointer",color:done?"#fff":"#cbd5e1",fontSize:13,fontWeight:600,transition:"all 0.2s",boxShadow:done?`0 2px 6px ${habit.color}30`:"none"}},done?"â":"Â·");
+              return e("button",{key:date,onClick:()=>toggleHabit(habit.id,date),style:{flex:1,height:34,borderRadius:8,border:"none",background:done?habit.color:"#f8fafc",cursor:"pointer",color:done?"#fff":"#cbd5e1",fontSize:13,fontWeight:600,transition:"all 0.2s",boxShadow:done?`0 2px 6px ${habit.color}30`:"none"}},done?"✓":"·");
             })
           )
         )
@@ -529,7 +558,7 @@ function HabitTracker() {
           const done=wDays.some(d=>(completions[d]||[]).includes(habit.id));
           return e("div",{key:habit.id,style:{background:"#fff",borderRadius:14,padding:"14px 16px",marginBottom:8,boxShadow:"0 1px 3px rgba(0,0,0,0.04)",border:done?`2px solid ${habit.color}`:"2px solid transparent"}},
             e("div",{style:{display:"flex",alignItems:"center",gap:10}},
-              e("div",{style:{width:34,height:34,borderRadius:10,background:done?habit.color:"#f8fafc",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,color:done?"#fff":undefined}},done?"â":habit.icon),
+              e("div",{style:{width:34,height:34,borderRadius:10,background:done?habit.color:"#f8fafc",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,color:done?"#fff":undefined}},done?"✓":habit.icon),
               e("div",{style:{flex:1}},
                 e("div",{style:{fontSize:13,fontWeight:600,color:done?habit.color:"#1e293b"}},habit.name),
                 e(WeeklyProgressBar,{completions,habitId:habit.id,color:habit.color})
@@ -540,7 +569,7 @@ function HabitTracker() {
         })
       )
     ),
-    // ââ STATS VIEW ââ
+    // ── STATS VIEW ──
     view==="stats"&&(()=>{
       const weeklyScores=getWeeklyScores(completions,currentHabits,8);
       const avgScore=weeklyScores.length>0?Math.round(weeklyScores.reduce((s,w)=>s+w.score,0)/weeklyScores.length):0;
@@ -548,7 +577,7 @@ function HabitTracker() {
       const lastWk=weeklyScores.length>1?weeklyScores[weeklyScores.length-2].score:0;
       const trend=thisWk-lastWk;
       return e("div",{style:{padding:"0 20px"}},
-        allCurrentHabits.length===0&&e("div",{style:{textAlign:"center",padding:"40px 20px",color:"#94a3b8"}},e("div",{style:{fontSize:36,marginBottom:10}},"ð"),e("div",{style:{fontSize:14,fontWeight:500}},"No stats yet")),
+        allCurrentHabits.length===0&&e("div",{style:{textAlign:"center",padding:"40px 20px",color:"#94a3b8"}},e("div",{style:{fontSize:36,marginBottom:10}},"📊"),e("div",{style:{fontSize:14,fontWeight:500}},"No stats yet")),
         allCurrentHabits.length>0&&e(React.Fragment,null,
           // Overall Score Card
           e("div",{style:{background:"linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%)",borderRadius:20,padding:"22px 20px",marginBottom:14,color:"#fff",boxShadow:"0 4px 16px rgba(99,102,241,0.3)"}},
@@ -557,10 +586,10 @@ function HabitTracker() {
               e("div",null,e("div",{style:{fontSize:48,fontWeight:800,lineHeight:1}},thisWk+"%"),e("div",{style:{fontSize:12,opacity:0.75,marginTop:4}},"This week")),
               e("div",{style:{flex:1,display:"flex",gap:12}},
                 e("div",{style:{textAlign:"center"}},e("div",{style:{fontSize:20,fontWeight:700}},avgScore+"%"),e("div",{style:{fontSize:10,opacity:0.7}},"8-wk avg")),
-                e("div",{style:{textAlign:"center"}},e("div",{style:{fontSize:20,fontWeight:700}},(trend>0?"â":trend<0?"â":"â")+Math.abs(trend)+"%"),e("div",{style:{fontSize:10,opacity:0.7}},"vs last wk"))
+                e("div",{style:{textAlign:"center"}},e("div",{style:{fontSize:20,fontWeight:700}},(trend>0?"↑":trend<0?"↓":"→")+Math.abs(trend)+"%"),e("div",{style:{fontSize:10,opacity:0.7}},"vs last wk"))
               )
             ),
-            e("div",{style:{fontSize:10,fontWeight:600,textTransform:"uppercase",letterSpacing:0.5,opacity:0.7,marginBottom:10}},"Weekly Index â Last 8 Weeks"),
+            e("div",{style:{fontSize:10,fontWeight:600,textTransform:"uppercase",letterSpacing:0.5,opacity:0.7,marginBottom:10}},"Weekly Index — Last 8 Weeks"),
             e("div",{style:{display:"flex",alignItems:"flex-end",gap:4,height:70}},
               weeklyScores.map((wk,i)=>{
                 const isCur=i===weeklyScores.length-1;const bh=Math.max((wk.score/100)*60,3);
@@ -574,7 +603,7 @@ function HabitTracker() {
           ),
           // Health vs Work breakdown
           e("div",{style:{display:"flex",gap:10,marginBottom:14}},
-            [{key:"health",label:"Health",icon:"ð",color:"#10b981"},{key:"work",label:"Work",icon:"ð¼",color:"#6366f1"}].map(cat=>{
+            [{key:"health",label:"Health",icon:"💚",color:"#10b981"},{key:"work",label:"Work",icon:"💼",color:"#6366f1"}].map(cat=>{
               const cd=currentHabits.daily.filter(h=>h.category===cat.key),cw=currentHabits.weekly.filter(h=>h.category===cat.key);
               const td=cd.filter(h=>(completions[today]||[]).includes(h.id)).length;
               const mk=getMondayOfWeek(today),we=new Date(mk+"T12:00:00");we.setDate(we.getDate()+6);
@@ -612,11 +641,11 @@ function HabitTracker() {
               // Streak numbers
               e("div",{style:{display:"flex",gap:8,marginBottom:14}},
                 e("div",{style:{flex:1,borderRadius:12,padding:"12px 8px",textAlign:"center",background:streak>0?`${habit.color}10`:"#f8fafc",border:streak>0?`1px solid ${habit.color}30`:"1px solid transparent"}},
-                  e("div",{style:{fontSize:24,fontWeight:800,color:streak>0?habit.color:"#cbd5e1"}},streak>0?"ð¥":"",streak),
+                  e("div",{style:{fontSize:24,fontWeight:800,color:streak>0?habit.color:"#cbd5e1"}},streak>0?"🔥":"",streak),
                   e("div",{style:{fontSize:10,color:"#94a3b8",fontWeight:600}},"Current "+(freq==="weekly"?"wk":"day")+" streak")
                 ),
                 e("div",{style:{flex:1,borderRadius:12,padding:"12px 8px",textAlign:"center",background:best>0?"#fffbeb":"#f8fafc",border:best>0?"1px solid #fde68a":"1px solid transparent"}},
-                  e("div",{style:{fontSize:24,fontWeight:800,color:best>0?"#f59e0b":"#cbd5e1"}},best>0?"ð":"",best),
+                  e("div",{style:{fontSize:24,fontWeight:800,color:best>0?"#f59e0b":"#cbd5e1"}},best>0?"🏆":"",best),
                   e("div",{style:{fontSize:10,color:"#94a3b8",fontWeight:600}},"Best "+(freq==="weekly"?"wk":"day")+" streak")
                 )
               ),
@@ -628,7 +657,7 @@ function HabitTracker() {
                     width:freq==="daily"?10:18,height:freq==="daily"?10:18,borderRadius:freq==="daily"?3:5,
                     background:entry.done?habit.color:"#f1f5f9",display:"flex",alignItems:"center",justifyContent:"center",
                     fontSize:8,color:"#fff",fontWeight:700,transition:"background 0.2s",opacity:entry.done?1:0.5,
-                  }},freq==="weekly"&&entry.done?"â":""))
+                  }},freq==="weekly"&&entry.done?"✓":""))
                 ),
                 e("div",{style:{display:"flex",alignItems:"center",gap:10,marginTop:6}},
                   e("div",{style:{display:"flex",alignItems:"center",gap:3}},e("div",{style:{width:8,height:8,borderRadius:2,background:habit.color}}),e("span",{style:{fontSize:9,color:"#94a3b8"}},"Done")),
@@ -643,10 +672,10 @@ function HabitTracker() {
         )
       );
     })(),
-    // ââ ADD HABIT MODAL ââ
+    // ── ADD HABIT MODAL ──
     showAdd&&e("div",{onClick:()=>setShowAdd(false),style:{position:"fixed",inset:0,background:"rgba(0,0,0,0.3)",backdropFilter:"blur(4px)",display:"flex",alignItems:"flex-end",justifyContent:"center",zIndex:100,padding:20}},
       e("div",{onClick:ev=>ev.stopPropagation(),style:{background:"#fff",borderRadius:24,padding:"24px 22px",width:"100%",maxWidth:400,boxShadow:"0 -4px 24px rgba(0,0,0,0.12)",animation:"slideUp 0.3s ease"}},
-        e("h3",{style:{fontSize:17,fontWeight:700,margin:"0 0 16px"}},"New Habit â "+(mode==="home"?"ð  Home":"âï¸ Travel")),
+        e("h3",{style:{fontSize:17,fontWeight:700,margin:"0 0 16px"}},"New Habit — "+(mode==="home"?"🏠 Home":"✈️ Travel")),
         // Frequency toggle
         e("div",{style:{display:"flex",background:"#f1f5f9",borderRadius:10,padding:3,marginBottom:12}},
           [{key:"daily",label:"Daily"},{key:"weekly",label:"Weekly"}].map(f=>
@@ -655,7 +684,7 @@ function HabitTracker() {
         ),
         // Category toggle
         e("div",{style:{display:"flex",background:"#f1f5f9",borderRadius:10,padding:3,marginBottom:16}},
-          [{key:"health",label:"ð Health"},{key:"work",label:"ð¼ Work"}].map(c=>
+          [{key:"health",label:"💚 Health"},{key:"work",label:"💼 Work"}].map(c=>
             e("button",{key:c.key,onClick:()=>setAddCategory(c.key),style:{flex:1,padding:"8px 0",borderRadius:8,border:"none",background:addCategory===c.key?"#fff":"transparent",color:addCategory===c.key?"#1e293b":"#94a3b8",fontSize:13,fontWeight:600,cursor:"pointer",boxShadow:addCategory===c.key?"0 1px 3px rgba(0,0,0,0.08)":"none"}},c.label)
           )
         ),
@@ -672,32 +701,7 @@ function HabitTracker() {
         e("div",{style:{marginBottom:16}},
           e("label",{style:{fontSize:11,fontWeight:600,color:"#64748b",display:"block",marginBottom:6}},"Or type your own"),
           e("div",{style:{display:"flex",gap:8}},
-            e("input",{type:"text",maxLength:2,value:newHabitIcon,onChange:ev=>setNewHabitIcon(ev.target.value),style:{width:46,height:46,textAlign:"center",fontSize:20,borderRadius:12,border:"2px solid #f1f5f9",background:"#f8fafc"},placeholder:"â­"}),
-            e("input",{type:"text",value:newHabitName,onChange:ev=>setNewHabitName(ev.target.value),onKeyDown:ev=>ev.key==="Enter"&&addHabit(),placeholder:"Habit name...",autoFocus:true,style:{flex:1,height:46,padding:"0 14px",fontSize:14,borderRadius:12,border:"2px solid #f1f5f9",background:"#f8fafc",fontWeight:500}})
-          )
-        ),
-        // Buttons
-        e("div",{style:{display:"flex",gap:8}},
-          e("button",{onClick:()=>setShowAdd(false),style:{flex:1,padding:"13px",borderRadius:14,border:"none",background:"#f1f5f9",color:"#64748b",fontSize:14,fontWeight:600,cursor:"pointer"}},"Cancel"),
-          e("button",{ng:3,marginBottom:16}},
-          [{key:"health",label:"ð Health"},{key:"work",label:"ð¼ Work"}].map(c=>
-            e("button",{key:c.key,onClick:()=>setAddCategory(c.key),style:{flex:1,padding:"8px 0",borderRadius:8,border:"none",background:addCategory===c.key?"#fff":"transparent",color:addCategory===c.key?"#1e293b":"#94a3b8",fontSize:13,fontWeight:600,cursor:"pointer",boxShadow:addCategory===c.key?"0 1px 3px rgba(0,0,0,0.08)":"none"}},c.label)
-          )
-        ),
-        // Quick add presets
-        e("div",{style:{marginBottom:14}},
-          e("label",{style:{fontSize:11,fontWeight:600,color:"#64748b",display:"block",marginBottom:6}},"Quick Add"),
-          e("div",{style:{display:"flex",flexWrap:"wrap",gap:6}},
-            (PRESET_HABITS[mode]?.[addFrequency]||[]).filter(p=>p.category===addCategory&&!currentHabits[addFrequency].some(h=>h.name===p.name)).slice(0,6).map(preset=>
-              e("button",{key:preset.name,onClick:()=>{setNewHabitName(preset.name);setNewHabitIcon(preset.icon);},style:{padding:"7px 12px",borderRadius:10,border:newHabitName===preset.name?"2px solid #6366f1":"2px solid #f1f5f9",background:newHabitName===preset.name?"#eef2ff":"#f8fafc",fontSize:12,cursor:"pointer",fontWeight:500,display:"flex",alignItems:"center",gap:5}},e("span",null,preset.icon)," ",preset.name)
-            )
-          )
-        ),
-        // Custom input
-        e("div",{style:{marginBottom:16}},
-          e("label",{style:{fontSize:11,fontWeight:600,color:"#64748b",display:"block",marginBottom:6}},"Or type your own"),
-          e("div",{style:{display:"flex",gap:8}},
-            e("input",{type:"text",maxLength:2,value:newHabitIcon,onChange:ev=>setNewHabitIcon(ev.target.value),style:{width:46,height:46,textAlign:"center",fontSize:20,borderRadius:12,border:"2px solid #f1f5f9",background:"#f8fafc"},placeholder:"â­"}),
+            e("input",{type:"text",maxLength:2,value:newHabitIcon,onChange:ev=>setNewHabitIcon(ev.target.value),style:{width:46,height:46,textAlign:"center",fontSize:20,borderRadius:12,border:"2px solid #f1f5f9",background:"#f8fafc"},placeholder:"⭐"}),
             e("input",{type:"text",value:newHabitName,onChange:ev=>setNewHabitName(ev.target.value),onKeyDown:ev=>ev.key==="Enter"&&addHabit(),placeholder:"Habit name...",autoFocus:true,style:{flex:1,height:46,padding:"0 14px",fontSize:14,borderRadius:12,border:"2px solid #f1f5f9",background:"#f8fafc",fontWeight:500}})
           )
         ),
