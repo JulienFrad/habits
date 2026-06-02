@@ -65,6 +65,26 @@ function loadState(key, fallback) {
 function saveState(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
 }
+// ── Data migration: ensure Wegovy Pill has "Every other day" note ──
+(function migrateNotes() {
+  try {
+    const raw = localStorage.getItem("ht_habits");
+    if (!raw) return;
+    const h = JSON.parse(raw);
+    let changed = false;
+    ["home","travelling"].forEach(mode => {
+      if (h[mode] && h[mode].daily) {
+        h[mode].daily.forEach(habit => {
+          if (habit.name === "Wegovy Pill" && !habit.note) {
+            habit.note = "Every other day";
+            changed = true;
+          }
+        });
+      }
+    });
+    if (changed) localStorage.setItem("ht_habits", JSON.stringify(h));
+  } catch {}
+})();
 // ── Date helpers ──
 const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
